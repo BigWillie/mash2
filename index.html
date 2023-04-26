@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MASH</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <div id="app">
+    <div class="grid-container">
+      <div class="grid-item clear-cell"><span>m</span></div>
+        <div class="grid-item">
+            <ul v-if="selectedCategories[0]">
+                <li class="catTitle">{{selectedCategories[0].category}}</li>
+                <li v-for="(choice, i) in selectedCategories[0].choices" :key="choice">
+                    <span :class="{ crossedOff: choice.crossedOff }">{{ choice.name }}</span>
+                </li>
+            </ul>
+        </div>
+      <div class="grid-item clear-cell"><span>a</span></div>
+      <div class="grid-item">
+        <ul v-if="selectedCategories[1]">
+            <li class="catTitle">{{selectedCategories[1].category}}</li>
+            <li v-for="(choice, i) in selectedCategories[1].choices" :key="choice">
+                <span :class="{ crossedOff: choice.crossedOff }">{{ choice.name }}</span>
+            </li>
+        </ul>
+    </div>
+      <div class="grid-item mainGrid">
+
+        <ul class="categorySelector" v-if="selectedCategories.length < 4 && Object.keys(lifePrediction).length === 0">
+          <li v-for="(category, i) in categories" 
+            @click="chooseCategory(category)"
+            :key="category">
+            {{ category }}
+        </li>
+        </ul>
+
+        <div v-if="selectedCategories.length === 4 && Object.keys(lifePrediction).length === 0">
+            <p>Your Magic Number is {{magicNumber}}</p>
+            <button @click="playMash()">Play Mash</button>
+        </div>
+
+        <div v-if="lifeCount === 12">
+            <ul>
+            <li v-for="(choice, key) in lifePrediction" :key="choice">
+                {{ key }}: {{ choice }}
+            </li> 
+        </ul>
+        <button @click="reset()">No!!! I want a better life!</button>
+        </div>
+
+       
+
+      </div>
+      <div class="grid-item">
+        <ul v-if="selectedCategories[2]">
+            <li class="catTitle">{{selectedCategories[2].category}}</li>
+            <li v-for="(choice, i) in selectedCategories[2].choices" :key="choice">
+                <span :class="{ crossedOff: choice.crossedOff }">{{ choice.name }}</span>
+            </li>
+        </ul>
+    </div>
+      <div class="grid-item clear-cell"><span>s</span></div>
+      <div class="grid-item">
+        <ul v-if="selectedCategories[3]">
+            <li class="catTitle">{{selectedCategories[3].category}}</li>
+            <li v-for="(choice, i) in selectedCategories[3].choices" :key="choice">
+                <span :class="{ crossedOff: choice.crossedOff }">{{ choice.name }}</span>
+            </li>
+        </ul>
+    </div>
+      <div class="grid-item clear-cell"><span>h</span></div>
+
+    </div>
+  </div>
+</body>
+</html>
